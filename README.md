@@ -1,7 +1,8 @@
-# ⚔️ FerdItemsUp: Upgrade Your DragonRiders Armor in Valheim! ⚔️
+# ⚔️ Ferd's TweakTheEpic: Adds tweaks for some epic mods in Valheim... and more! ⚔️
 
-**FerdItemsUp** is a patch for the legendary [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod created by Yggdrah.  
-With this mod, you can upgrade the powerful DragonRiders armor pieces, forging your path to glory in the world of Valheim.
+**Features:** 
+
+1) A patch for the legendary [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod created by Yggdrah.Were you can upgrade the powerful DragonRiders armor pieces, forging your path to glory in the world of Valheim.
 
 ---
 
@@ -17,24 +18,20 @@ With this mod, you can upgrade the powerful DragonRiders armor pieces, forging y
   - Helmet Moder Ygg
 
 - **Balanced and progressive recipes**  
-  Each upgrade requires advanced materials and resources worthy of a true Norse warrior.
-
-- **Full integration with the BlackForge station**  
-  Upgrades are performed at the BlackForge, ensuring only the bravest and most prepared can reach the highest levels of power.
+  Each upgrade requires advanced materials and resources worthy of a true Norse warrior (configurable via DragonRiders.conf file).
 
 ---
 
 ## 🪓 Installation
 
 1. Install the [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod by Yggdrah.
-2. Download or build **FerdItemsUp** and place it in your `BepInEx/plugins` folder in your Valheim installation.
-3. Start the game and enjoy the new upgradeability for your DragonRiders armor.
+2. Download or build **TweakTheEpic** and place it in your `BepInEx/plugins` folder in your Valheim installation.
+3. Start the game and enjoy the new features.
 
 ---
 
 ## ⚒️ Technical Details
 
 - This mod requires **DragonRiders** as a hard dependency.
-- Recipes and upgrade materials are carefully balanced for challenge and progression.
 - Compatible with BepInEx and Harmony.
 
