@@ -1,10 +1,13 @@
 # ⚔️ Ferd's Epic Enhancements: Tweaks and additions for some Valheim epic mods... and more! ⚔️
 
 **Dependencies:** 
+> [!WARNING]
+> **(Hard dependency)**
+> This mod depends on the mighty [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod created by Yggdrah.
 
-> 1) (Hard dependency) This mod depends on the mighty [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod created by Yggdrah.
-
-> 2) (Optional) This mod also adds some features to [RenegadeVikings](https://thunderstore.io/c/valheim/p/blacks7ar/RenegadeVikings/) mod.
+> [!NOTE]
+> **(Optional)**
+> This mod also adds some features to [RenegadeVikings](https://thunderstore.io/c/valheim/p/blacks7ar/RenegadeVikings/) mod.
 
 ---
 
@@ -117,9 +120,10 @@ Renegade's weapons and wearings updated to Valheim Call to Arms version.
 ## 🪓 Installation
 
 1. Install the [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod by Yggdrah.
-> 2. (Optional) Install **RenegadeVikings.dll** from this repository or from [Thunderstone's page](https://thunderstore.io/c/valheim/p/blacks7ar/RenegadeVikings/) and place it in your `BepInEx/plugins` folder in your Valheim installation.
-3. Download lastest release of **FerdsEpicEnhancements.dll** from [this repository](https://github.com/Ferd656/Ferds-EpicEnchancements/releases) and place it in your `BepInEx/plugins` folder in your Valheim installation.
-4. Start the game and enjoy the new features.
+> **(Optional)**
+> Install **RenegadeVikings.dll** from this repository or from [Thunderstone's page](https://thunderstore.io/c/valheim/p/blacks7ar/RenegadeVikings/) and place it in your `BepInEx/plugins` folder in your Valheim installation.
+2. Download lastest release of **FerdsEpicEnhancements.dll** from [this repository](https://github.com/Ferd656/Ferds-EpicEnchancements/releases) and place it in your `BepInEx/plugins` folder in your Valheim installation.
+3. Start the game and enjoy the new features.
 
 ---
 ## ⚙️ Configuration
