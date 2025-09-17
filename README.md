@@ -15,77 +15,77 @@
 ![Abilities](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/StatusEffects.png)
 
 - **ScaleWard**  
-![ScaleWard](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![ScaleWard](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/ScaleWard.png)
 
 - **BeastLord**  
-![BeastLord](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![BeastLord](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/BeastLord.png)
 
 
 ### Items rebalanced
 
 - **Artisan Table items**  
   - Dragon Essence
-  ![Dragon Essence](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+  ![Dragon Essence](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonEssence.png)
 
   - Dragon Saddle
-  ![Dragon Saddle](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+  ![Dragon Saddle](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonSaddle.png)
 
   - Moder's Egg
-  ![Moder's Egg](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+  ![Moder's Egg](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/IceDragonEgg.png)
 
   - Grimthor's Egg
-  ![Grimthor's Egg](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+  ![Grimthor's Egg](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/LightningDragonEgg.png)
 
   - Smauger's Egg
-  ![Smauger's Egg](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+  ![Smauger's Egg](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/FireDragonEgg.png)
 
 - **Black Forge items**  
-  - Dragon Armor Breastplate
-  ![Dragon Armor Breastplate](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+  - Dragon Armor Breastplate and 
+  ![Dragon Armor Breastplate](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonArmor.png)
 
   - Dragon Armor Leggings
-    ![Dragon Armor Leggings](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+    ![Dragon Armor Leggings](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonLeggings.png)
 
   - Dragon Rider Crown
-    ![Dragon Rider Crown](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+    ![Dragon Rider Crown](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonRiderCrown.png)
 
   - Dragon Rider Helmet
-    ![Dragon Rider Helmet](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+    ![Dragon Rider Helmet](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonRiderHelmet.png)
 
   - Dragon Scale Cape
-    ![Dragon Scale Cape](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+    ![Dragon Scale Cape](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonCape.png)
 
-  - Helmet Shield
-    ![Helmet Shield](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+  - Dragon Shield
+    ![Helmet Shield](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonShield.png)
 
 
 ### Dragon Scale Cape asset reskinned
 
-![Texture creation process](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![Texture creation process](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonCapeReskin2.png)
 
-![Dragon Scale Cape reskin](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![Dragon Scale Cape reskin](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonCapeReskin1.png)
 
 
 ### New Dragon trinkets!
 
 Valheim Call To Arms update introduced adrenaline mechanics and new trinket-type items. With FerdsEpicEnhancements you can craft three new dragon-themed trinkets at your <span style="color:orange">**Artisan table**</span>, with powerful habilities that lets you strike like a dragon! 
 
-![trinkets raw design](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![trinkets raw design](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/NewDragonTrinkets.png)
 
 <span style="color: red;">Note: In-game textures have been baked and compressed for better performance.</span>
 
-![EldrFadmr](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![EldrFadmr](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/EldrFadmr_demo.png)
 
-![StormrFadmr](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![StormrFadmr](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/StormrFadmr_demo.png)
 
-![VentrFadmr](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![VentrFadmr](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/VentrFadmr_demo.png)
 
 
 ### Expanded Saddle range
 
 The best for the end, no more suffering trying to climb up to your saddle, thanks to new Dragon Saddle's expanded access rage.
 
-![dragonsaddle's expanded range](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![dragonsaddle's expanded range](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/EnhancedSaddle.png)
 
 
 ### (RenegadeVikings only)
@@ -112,7 +112,7 @@ Renegade's weapons and wearings updated to Valheim Call to Arms version. <span s
 
 This addon uses 'Yggdrah.DragonRiders.cfg' file for its configuraton, if you want to go back to Yggdrah's defaults or your custom configuration, the only thing you need is to set 'FerdsRebalanceOverride' property to false.
 
-![configuration instructions](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![configuration instructions](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/ConfigurationInstructions.png)
 
 <span style="color: red;">Note: FerdsRebalanceOverride will appear automatically at the top of Yggdrah.DragonRiders.cfg file after the first execution of FerdsEpicEnhancements.</span>
 
@@ -121,7 +121,7 @@ This addon uses 'Yggdrah.DragonRiders.cfg' file for its configuraton, if you wan
 
 There is a known bug reported from 'vanilla' DragonRiders, caused by an asset desynchronization within ZNetView, which causes FPS harshly drops due to process queue overflow. FerdsEpicEnhancements applies patches to related ZNetView methods in order to avoid this issue, neverthless if this happens to you anyway, just save the world and restart the game, that should temporarily solve the issue. 
 
-![bug](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+![bug](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/KnownBugs.png)
 
 ---
 ## 💬 Contact
