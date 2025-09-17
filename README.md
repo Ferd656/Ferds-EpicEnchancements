@@ -61,6 +61,8 @@
 
 ### Dragon Scale Cape asset reskinned
 
+![Texture creation process](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
+
 ![Dragon Scale Cape reskin](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
 
 
