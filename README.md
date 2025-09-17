@@ -12,7 +12,7 @@
 
 ### Introduced new habilities
 
-![Abilities](https://github.com/Ferd656/Ferds-EpicEnchancements/tree/master/Media/StatusEffects.png)
+![Abilities]([https://github.com/Ferd656/Ferds-EpicEnchancements/tree/master/Media/StatusEffects.png](https://github.com/Ferd656/Ferds-EpicEnchancements/blob/master/Media/StatusEffects.png))
 
 - **ScaleWard**  
 ![ScaleWard](https://github.com/[username]/[reponame]/blob/[branch]/image.jpg?raw=true)
