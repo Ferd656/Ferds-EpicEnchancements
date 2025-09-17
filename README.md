@@ -83,7 +83,8 @@ Valheim Call To Arms update introduced adrenaline mechanics and new trinket-type
 
 ![trinkets raw design](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/NewDragonTrinkets.png)
 
-<span style="color: red;">Note: In-game textures have been baked and compressed for better performance.</span>
+> [!NOTE]
+> In-game textures have been baked and compressed for better performance.
 
 ![EldrFadmr](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/EldrFadmr_demo.png)
 
@@ -107,7 +108,9 @@ Added new boss combat music for Renegade Overlord encounters.
 
 - **Updated to Call to Arms**  
 
-Renegade's weapons and wearings updated to Valheim Call to Arms version. <span style="color: red;">Note: this only applies for the **RenegadeVikings.dll** file I uploaded to this repository.</span>
+Renegade's weapons and wearings updated to Valheim Call to Arms version.
+> [!NOTE]
+> This only applies for my modified **RenegadeVikings.dll** file, which I uploaded to this repository.
 
 ---
 
@@ -125,7 +128,8 @@ This addon uses 'Yggdrah.DragonRiders.cfg' file for its configuraton, if you wan
 
 ![configuration instructions](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/ConfigurationInstructions.png)
 
-<span style="color: red;">Note: FerdsRebalanceOverride will appear automatically at the top of Yggdrah.DragonRiders.cfg file after the first execution of FerdsEpicEnhancements.</span>
+> [!NOTE]
+> FerdsRebalanceOverride field will appear automatically at the top of Yggdrah.DragonRiders.cfg file after the first execution of FerdsEpicEnhancements.dll.
 
 ---
 ## 🐛 Known bugs
