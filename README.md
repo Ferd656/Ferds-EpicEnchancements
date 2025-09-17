@@ -109,11 +109,11 @@ The best for the end, no more suffering trying to climb up to your saddle, thank
 
 Added new boss combat music for Renegade Overlord encounters.
 
-- **Updated to Call to Arms**  
+- **Updated to Call to Arms**
+
+> This only applies for my modified **RenegadeVikings.dll** file, which I uploaded to this repository.
 
 Renegade's weapons and wearings updated to Valheim Call to Arms version.
-> [!NOTE]
-> This only applies for my modified **RenegadeVikings.dll** file, which I uploaded to this repository.
 
 ---
 
