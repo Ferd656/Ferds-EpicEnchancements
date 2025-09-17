@@ -25,37 +25,48 @@
 
 - **Artisan Table items**  
   - Dragon Essence
+    
   ![Dragon Essence](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonEssence.png)
 
   - Dragon Saddle
+    
   ![Dragon Saddle](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonSaddle.png)
 
   - Moder's Egg
+    
   ![Moder's Egg](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/IceDragonEgg.png)
 
   - Grimthor's Egg
+    
   ![Grimthor's Egg](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/LightningDragonEgg.png)
 
   - Smauger's Egg
+    
   ![Smauger's Egg](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/FireDragonEgg.png)
 
 - **Black Forge items**  
-  - Dragon Armor Breastplate and 
+  - Dragon Armor Breastplate
+    
   ![Dragon Armor Breastplate](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonArmor.png)
 
   - Dragon Armor Leggings
+    
     ![Dragon Armor Leggings](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonLeggings.png)
 
   - Dragon Rider Crown
+    
     ![Dragon Rider Crown](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonRiderCrown.png)
 
   - Dragon Rider Helmet
+    
     ![Dragon Rider Helmet](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonRiderHelmet.png)
 
   - Dragon Scale Cape
+    
     ![Dragon Scale Cape](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonCape.png)
 
   - Dragon Shield
+    
     ![Helmet Shield](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonShield.png)
 
 
