@@ -2,7 +2,7 @@
 
 **Dependencies:** 
 
-1) (Hard dependency) Thos mod depends on the mighty [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod created by Yggdrah.
+1) (Hard dependency) This mod depends on the mighty [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod created by Yggdrah.
 
 2) (Optional) This mod also adds some features to [RenegadeVikings](https://thunderstore.io/c/valheim/p/blacks7ar/RenegadeVikings/) mod.
 
