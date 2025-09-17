@@ -13,7 +13,7 @@
 
 ## 🛡️ What does this mod do?
 
-### Introduced new habilities
+### ┈┈┈┈ Introduced new habilities ┈┈┈┈
 
 ![Abilities](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/StatusEffects.png)
 
@@ -24,7 +24,7 @@
 ![BeastLord](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/BeastLord.png)
 
 
-### Items rebalanced
+### ┈┈┈┈ Items rebalanced ┈┈┈┈
 
 - **Artisan Table items**  
   - Dragon Essence
@@ -73,14 +73,14 @@
     ![Helmet Shield](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonShield.png)
 
 
-### Dragon Scale Cape asset reskinned
+### ┈┈┈┈ Dragon Scale Cape asset reskinned ┈┈┈┈
 
 ![Texture creation process](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonCapeReskin2.png)
 
 ![Dragon Scale Cape reskin](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/DragonCapeReskin1.png)
 
 
-### New Dragon trinkets!
+### ┈┈┈┈ New Dragon trinkets! ┈┈┈┈
 
 Valheim Call To Arms update introduced adrenaline mechanics and new trinket-type items. With FerdsEpicEnhancements you can craft three new dragon-themed trinkets at your <span style="color:orange">**Artisan table**</span>, with powerful habilities that lets you strike like a dragon! 
 
@@ -96,14 +96,14 @@ Valheim Call To Arms update introduced adrenaline mechanics and new trinket-type
 ![VentrFadmr](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/VentrFadmr_demo.png)
 
 
-### Expanded Saddle range
+### ┈┈┈┈ Expanded Saddle range ┈┈┈┈
 
 The best for the end, no more suffering trying to climb up to your saddle, thanks to new Dragon Saddle's expanded access rage.
 
 ![dragonsaddle's expanded range](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnchancements/refs/heads/master/Media/EnhancedSaddle.png)
 
 
-### (RenegadeVikings only)
+### ┈┈┈┈ (RenegadeVikings only) ┈┈┈┈
 
 - **New SFX**  
 
