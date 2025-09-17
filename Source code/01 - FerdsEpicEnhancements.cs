@@ -15,12 +15,12 @@ using UnityEngine.SceneManagement;
 
 namespace FerdEpicEnhancements
 {
-    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.0.0")]
+    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.0.1")]
     [BepInDependency("Yggdrah.DragonRiders", BepInDependency.DependencyFlags.HardDependency)]
     public class FerdsEpicEnhancementsPlugin : BaseUnityPlugin
     {
         // Setup
-        public const string PluginVersion = "1.0.0";
+        public const string PluginVersion = "1.0.1";
         public const string PluginGuid = "Ferd.EpicEnhancements";
         public const string PluginName = "FerdsEpicEnhancements";
         public static PluginInfo Metadata =>
@@ -310,7 +310,8 @@ namespace FerdEpicEnhancements
                         FerdsItemFactory.Req("CapeFeather",1,0),
                         FerdsItemFactory.Req("CapeAsh",1,0),
                         FerdsItemFactory.Req("DragonScale_Ygg",2,1),
-                        FerdsItemFactory.Req("DragonTear",20,10), FerdsItemFactory.Req("Tar",0,10)
+                        FerdsItemFactory.Req("DragonTear",20,10),
+                        FerdsItemFactory.Req("Tar",0,10)
                     };
                     ObjectDB.instance.m_recipes.Add(r);
                 }
@@ -920,6 +921,34 @@ namespace FerdEpicEnhancements
                     var list = fieldDistant.GetValue(__instance) as List<GameObject>;
                     if (list != null)
                         list.RemoveAll(obj => obj == null);
+                }
+            }
+        }
+        [HarmonyPatch(typeof(Recipe), "GetRequiredStationLevel")]
+        public static class Patch_Recipe_GetRequiredStationLevel
+        {
+            // Lista de nombres de prefabs que quieres forzar el cálculo
+            private static readonly HashSet<string> TargetPrefabs = new HashSet<string>
+            {
+                "DragonChest_Ygg",
+                "DragonLeggings_Ygg",
+                "DragonCrown_Ygg",
+                "DragonShield_Ygg",
+                "HelmetModer_Ygg",
+                "Dragon_Cape_Ygg"
+            };
+
+            [HarmonyPostfix]
+            public static void Postfix(Recipe __instance, int quality, ref int __result)
+            {
+                if (__instance.m_item != null)
+                {
+                    // Elimina "(Clone)" si existe y compara el nombre limpio
+                    string cleanName = __instance.m_item.name.Replace("(Clone)", "").Trim();
+                    if (TargetPrefabs.Contains(cleanName))
+                    {
+                        __result = __instance.m_minStationLevel + quality - 1;
+                    }
                 }
             }
         }
