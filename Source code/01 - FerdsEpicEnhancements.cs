@@ -213,35 +213,48 @@ namespace FerdEpicEnhancements
         ╔════════════════════════════════════╗
         ║ Core logic                         ║
         ╚════════════════════════════════════╝
- */
-        public IEnumerator Orchestrator() // Cambiado a público para acceso desde el parche
+        */
+        public IEnumerator Orchestrator() 
         {
             // Check if proceed
             if (_appliedOnce || _isPatching) yield break;
             _isPatching = true;
+            bool logged = false;
             try
             {
                 LogS.LogInfo($"[{PluginName}][Orchestrator] Starting . . .");
-                // Check if odb and zns are ready
-                int waitFrames = 0;
                 while (ObjectDB.instance == null || ZNetScene.instance == null)
                 {
-                    if (waitFrames++ % 60 == 0) LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for Odb/Zns... (frame {waitFrames})");
+                    if (!logged)
+                    {
+                        LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for Odb/Zns...");
+                        logged = true;
+                    }
                     yield return null;
                 }
-                // Wait until odb is populated
+                logged = false;
                 int frames = 0, maxFrames = 10 * 60;
                 while ((ObjectDB.instance.m_items == null || ObjectDB.instance.m_items.Count == 0) && frames < maxFrames)
                 {
-                    if (frames++ % 60 == 0) LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for ObjectDB.instance.m_items... (frame {frames})");
+                    if (!logged)
+                    {
+                        LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for ObjectDB.instance.m_items...");
+                        logged = true;
+                    }
                     yield return null;
+                    frames++;
                 }
-                // Wait for dragonriders
+                logged = false;
                 frames = 0;
                 while (!IsDragonRidersLoaded() && frames < maxFrames)
                 {
-                    if (frames++ % 60 == 0) LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for DragonRiders... (frame {frames})");
+                    if (!logged)
+                    {
+                        LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for DragonRiders...");
+                        logged = true;
+                    }
                     yield return null;
+                    frames++;
                 }
                 if (!IsDragonRidersLoaded()) { 
                     LogS.LogError($"[{PluginName}] DragonRiders dependency did not appear; aborting core wiring."); yield break; 
@@ -564,44 +577,130 @@ namespace FerdEpicEnhancements
             try {
                 if (override_yggdras_config){
                     // ICE
-                    TweakAttack("iceball_attack_Ygg", frost: 100, chop: 75, pick: 75, blunt: 25, se: "Frost", seChance: .5f);
-                    TweakAttack("iceball_attack_Ygg2", frost: 150, chop: 100, pick: 100, blunt: 35, se: "Frost", seChance: .5f);
-                    TweakAttack("Atk_stompmoder_ygg", frost: 270, chop: 150, pick: 150, blunt: 75, forceVal: 50f, se: "Frost", seChance: 1.0f);
-                    TweakAttack("Atk_Ice_Spit_MD_Ygg", frost: 350, chop: 200, pick: 200, blunt: 100, forceVal: 50f, se: "Frost", seChance: 1.0f);
-                    TweakAttack("Atk_Ice_Spit_MD_Elder_Ygg", frost: 450, chop: 200, pick: 200, blunt: 100, forceVal: 50f, se: "Frost", seChance: 1.0f);
+                    TweakAttack("iceball_attack_Ygg", frost: 110, chop: 75, pick: 75, blunt: 33, se: "Frost", seChance: .5f);
+                    TweakAttack("iceball_attack_Ygg2", frost: 165, chop: 100, pick: 100, blunt: 48, se: "Frost", seChance: .5f);
+                    TweakAttack("Atk_stompmoder_ygg", frost: 297, chop: 150, pick: 150, blunt: 83, forceVal: 50f, se: "Frost", seChance: 1.0f);
+                    TweakAttack("Atk_Ice_Spit_MD_Ygg", frost: 385, chop: 200, pick: 200, blunt: 110, forceVal: 50f, se: "Frost", seChance: 1.0f);
+                    TweakAttack("Atk_Ice_Spit_MD_Elder_Ygg", frost: 495, chop: 200, pick: 200, blunt: 125, forceVal: 50f, se: "Frost", seChance: 1.0f);
                     // FIRE
-                    TweakAttack("Dred_Attack1", fire: 75, chop: 75, pick: 75, blunt: 30, forceVal: 10f, se: "Burning", seChance: .5f);
-                    TweakAttack("Dred_Attack2", fire: 200, chop: 100, pick: 100, blunt: 50, forceVal: 25f, se: "Burning", seChance: .5f);
-                    TweakAttack("Atk_Dsmaug_Spit_Ygg2", fire: 300, chop: 200, pick: 200, blunt: 200, forceVal: 50f, se: "Burning", seChance: .75f);
-                    TweakAttack("Atk_Dsmaug_Spit_Ygg3", fire: 300, chop: 200, pick: 200, blunt: 200, forceVal: 50f, se: "Burning", seChance: .75f);
-                    TweakAttack("DragonFBreathe_Ygg", fire: 800, chop: 250, pick: 250, se: "Burning", seChance: 1.0f);
+                    TweakAttack("Dred_Attack1", fire: 83, chop: 75, pick: 75, blunt: 33, forceVal: 10f, se: "Burning", seChance: .5f);
+                    TweakAttack("Dred_Attack2", fire: 220, chop: 100, pick: 100, blunt: 55, forceVal: 25f, se: "Burning", seChance: .5f);
+                    TweakAttack("Atk_Dsmaug_Spit_Ygg2", fire: 330, chop: 200, pick: 200, blunt: 220, forceVal: 50f, se: "Burning", seChance: .75f);
+                    TweakAttack("Atk_Dsmaug_Spit_Ygg3", fire: 330, chop: 200, pick: 200, blunt: 220, forceVal: 50f, se: "Burning", seChance: .75f);
+                    TweakAttack("DragonFBreathe_Ygg", fire: 880, chop: 250, pick: 275, se: "Burning", seChance: 1.0f);
                     // LIGHTNING
-                    TweakAttack("Atk_DTJ_Spit_Ygg", fire: 500, chop: 200, pick: 200, forceVal: 30f, seByName: "SE_TJBurnShock", seChance: 1.0f);
-                    TweakAttack("DTJ_Punch_Ygg1", fire: 300, chop: 200, pick: 200, blunt: 200, forceVal: 100f, seByName: "SE_TJBurnShock", seChance: .6f);
-                    TweakAttack("DTJ_Punch_Ygg2", fire: 300, chop: 200, pick: 200, blunt: 200, forceVal: 100f, seByName: "SE_TJBurnShock", seChance: .6f);
+                    TweakAttack("Atk_DTJ_Spit_Ygg", fire: 550, chop: 200, pick: 200, forceVal: 30f, seByName: "SE_TJBurnShock", seChance: 1.0f);
+                    TweakAttack("DTJ_Punch_Ygg1", fire: 330, chop: 200, pick: 200, blunt: 220, forceVal: 100f, seByName: "SE_TJBurnShock", seChance: .6f);
+                    TweakAttack("DTJ_Punch_Ygg2", fire: 330, chop: 200, pick: 200, blunt: 220, forceVal: 100f, seByName: "SE_TJBurnShock", seChance: .6f);
                 }
             } catch (Exception ex) { LogS.LogError($"[{PluginName}] Error tweaking attacks: {ex.Message}"); }
-            TweakDragonHealthTemplates();
+            TweakDragons();
         }
-        private static void TweakDragonHealthTemplates() {
+        private static void TweakDragons() {
+            void SetResistances(Character dragon, string dragontype = "None") {
+                var dragontypes = new[] { "Fire", "Ice", "Lightning" };
+                if (dragon == null) return;
+                var modifs = new HitData.DamageModifiers();
+                // Elemental
+                modifs.m_fire = HitData.DamageModifier.Normal;
+                modifs.m_frost = HitData.DamageModifier.Normal;
+                modifs.m_spirit = HitData.DamageModifier.Immune;
+                modifs.m_poison = HitData.DamageModifier.Normal;
+                modifs.m_lightning = HitData.DamageModifier.Normal;
+                // Physical
+                modifs.m_slash = HitData.DamageModifier.Normal;
+                modifs.m_blunt = HitData.DamageModifier.Normal;
+                modifs.m_pierce = HitData.DamageModifier.Normal;
+                // Misc
+                modifs.m_chop = HitData.DamageModifier.Ignore;
+                modifs.m_pickaxe = HitData.DamageModifier.Ignore;
+                if (dragontypes.Contains(dragontype)) {
+                    // For growth dragons to be physically sturdy
+                    modifs.m_slash = HitData.DamageModifier.SlightlyResistant;
+                    modifs.m_blunt = HitData.DamageModifier.SlightlyResistant;
+                    modifs.m_pierce = HitData.DamageModifier.Resistant;
+                }
+                switch (dragontype) {
+                    // Elemental resistances depending on type
+                    case "Fire":
+                        modifs.m_fire = HitData.DamageModifier.VeryResistant;
+                        modifs.m_frost = HitData.DamageModifier.SlightlyResistant;
+                        break;
+                    case "Ice":
+                        modifs.m_frost = HitData.DamageModifier.VeryResistant;
+                        break;
+                    case "Lightning":
+                        modifs.m_fire = HitData.DamageModifier.SlightlyResistant;
+                        modifs.m_frost = HitData.DamageModifier.SlightlyResistant;
+                        modifs.m_lightning = HitData.DamageModifier.VeryResistant;
+                        break;
+                }
+                dragon.m_damageModifiers = modifs;
+            }
             void SetHPtpl(string prefab, float hp) {
                 var go = ZNetScene.instance.GetPrefab(prefab);
                 if (go && go.TryGetComponent<Character>(out var ch))
                 {
                     ch.m_health = hp;
-                    //LogS.LogInfo($"[{PluginName}] Template HP set for '{prefab}' -> {hp}");
+                    if (prefab == "DModer_Ygg3" || prefab == "DModer_Ygg4_Elder"){
+                        SetResistances(ch, "Ice");
+                    }  else if (prefab == "dragon_ygg3_fire" || prefab == "dragon_ygg4_fire_Elder"){
+                        SetResistances(ch, "Fire");
+                    }  else if (prefab == "dragon_ygg3_blue" || prefab == "dragon_ygg4_blue_Elder"){
+                        SetResistances(ch, "Lightning");
+                    } else SetResistances(ch);
+                    // Log
+                    //string dragon_name;
+                    //switch (prefab)
+                    //{
+                    //    case "DModer_Ygg3":
+                    //        dragon_name = "Adult Ice Dragon";
+                    //        break;
+                    //    case "DModer_Ygg4_Elder":
+                    //        dragon_name = "Elder Ice Dragon";
+                    //        break;
+                    //    case "dragon_ygg3_fire":
+                    //        dragon_name = "Adult Fire Dragon";
+                    //        break;
+                    //    case "dragon_ygg4_fire_Elder":
+                    //        dragon_name = "Elder Fire Dragon";
+                    //        break;
+                    //    case "dragon_ygg3_blue":
+                    //        dragon_name = "Adult Lightning Dragon";
+                    //        break;
+                    //    case "dragon_ygg4_blue_Elder":
+                    //        dragon_name = "Elder Lightning Dragon";
+                    //        break;
+                    //    default:
+                    //        dragon_name = prefab;
+                    //        break;
+                    //}
+                    //HitData.DamageModifiers modifs;
+                    //modifs = ch.m_damageModifiers;
+                    //var fields = typeof(HitData.DamageModifiers).GetFields();
+                    //var modsText = string.Join("\n",
+                    //    fields
+                    //        .Where(f => f.GetValue(modifs) != null)
+                    //        .Select(f => {
+                    //            var name = f.Name.StartsWith("m_") ? f.Name.Substring(2) : f.Name;
+                    //            if (name.Length > 0)
+                    //                name = char.ToUpper(name[0]) + name.Substring(1);
+                    //            return $" ➣ {name}: {f.GetValue(modifs)}";
+                    //        })
+                    //);
+                    //LogS.LogInfo($"[{PluginName}][Dragon rebalance] Template set for: '{dragon_name}'\n ➣ Max health = {hp}\n{modsText}");
                 }
                 else LogS.LogError($"[{PluginName}] Prefab '{prefab}' not found");
             }
-            SetHPtpl("DModer_Ygg2", 2000f);
-            SetHPtpl("DModer_Ygg3", 5000f);
-            SetHPtpl("DModer_Ygg4_Elder", 8000f);
-            SetHPtpl("dragon_ygg2_fire", 2000f);
-            SetHPtpl("dragon_ygg3_fire", 5000f);
-            SetHPtpl("dragon_ygg4_fire_Elder", 8000f);
-            SetHPtpl("dragon_ygg2_blue", 2000f);
-            SetHPtpl("dragon_ygg3_blue", 5000f);
-            SetHPtpl("dragon_ygg4_blue_Elder", 8000f);
+            SetHPtpl("DModer_Ygg2", 3000);
+            SetHPtpl("DModer_Ygg3", 6000);
+            SetHPtpl("DModer_Ygg4_Elder", 10000);
+            SetHPtpl("dragon_ygg2_fire", 3000);
+            SetHPtpl("dragon_ygg3_fire", 6000);
+            SetHPtpl("dragon_ygg4_fire_Elder", 10000);
+            SetHPtpl("dragon_ygg2_blue", 2500f);
+            SetHPtpl("dragon_ygg3_blue", 6000);
+            SetHPtpl("dragon_ygg4_blue_Elder", 10000);
         }
         /*
         ╔════════════════════════════════════╗
