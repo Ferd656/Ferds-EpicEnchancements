@@ -111,7 +111,7 @@ Added new boss combat music for Renegade Overlord encounters.
 
 - **Updated to Call to Arms**
 
-> This only applies for my modified **RenegadeVikings.dll** file, which I uploaded to this repository.
+> This only applies for my modified **RenegadeVikings.dll** file, which I uploaded to [this repository](https://github.com/Ferd656/Ferds-EpicEnhancements/blob/master/OptionalFiles/RenegadeVikings.dll).
 
 Renegade's weapons and wearings updated to Valheim Call to Arms version.
 
