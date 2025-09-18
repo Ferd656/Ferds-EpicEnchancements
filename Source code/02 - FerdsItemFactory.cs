@@ -168,14 +168,20 @@ namespace FerdEpicEnhancements
             try
             {
                 Player player = null;
-                GameObject prefab;
-                GameObject equipped_prefab;
+                GameObject prefab = null;
+                GameObject equipped_prefab = null;
                 var vis = __instance as VisEquipment;
-
+                var allowedNames = new HashSet<string>
+                {
+                    "TrinketFireDragon_Frd",
+                    "TrinketLightningDragon_Frd",
+                    "TrinketIceDragon_Frd"
+                };
                 if (s_targetIsPlayer) player = __instance as Player;
                 else if (vis != null) player = vis.GetComponentInParent<Player>();
 
-                if (!player || !FerdsEpicEnhancementsPlugin._wasDragonRidersLoaded) return;
+                if (player == null || !FerdsEpicEnhancementsPlugin._wasDragonRidersLoaded)
+                    return;
 
                 var prefab_name = GetEquippedTrinketPrefabName(player);
                 if (string.IsNullOrEmpty(prefab_name))
@@ -183,50 +189,59 @@ namespace FerdEpicEnhancements
                     RemoveVisual(player, reason: "no-our-item-equipped");
                     return;
                 }
-                prefab = ZNetScene.instance.GetPrefab(prefab_name);
-                if (!prefab)
+
+                prefab = ZNetScene.instance?.GetPrefab(prefab_name);
+                if (prefab == null)
                 {
                     RemoveVisual(player, reason: "no-visual-def");
                     return;
                 }
+
                 if (prefab_name == "TrinketFireDragon_Frd")
-                {
                     equipped_prefab = FerdsEpicEnhancementsPlugin.TrinketFireDragonPrefab_equipped;
-                }
                 else if (prefab_name == "TrinketLightningDragon_Frd")
-                {
                     equipped_prefab = FerdsEpicEnhancementsPlugin.TrinketLightningDragonPrefab_equipped;
-                }
                 else if (prefab_name == "TrinketIceDragon_Frd")
-                {
                     equipped_prefab = FerdsEpicEnhancementsPlugin.TrinketIceDragonPrefab_equipped;
+                else
+                    equipped_prefab = ZNetScene.instance?.GetPrefab(prefab_name);
+
+                if (equipped_prefab == null)
+                {
+                    RemoveVisual(player, reason: "no-equipped-prefab");
+                    return;
                 }
-                else equipped_prefab = ZNetScene.instance.GetPrefab(prefab_name);
 
                 if (Spawned.TryGetValue(player, out var existing) && existing)
                 {
                     if (!existing.name.Equals(equipped_prefab.name, System.StringComparison.Ordinal))
                     {
                         RemoveVisual(player, reason: "switching-visual");
-                    }
-                    else
-                    {
-                        if (!existing.transform.parent)
+                        if (allowedNames.Contains(prefab_name))
                         {
-                            AttachToNeck(player, existing.transform);
-                            TryRebindAllSkinnedMeshesToPlayer(player, existing.transform);
+                            var inst = UnityEngine.Object.Instantiate(equipped_prefab);
+                            inst.name = equipped_prefab.name;
+                            SafePrepareVisualInstance(inst);
+                            AttachToNeck(player, inst.transform);
+                            TryRebindAllSkinnedMeshesToPlayer(player, inst.transform);
+                            Spawned[player] = inst;
                         }
-                        return;
+                    }
+                    else if (!existing.transform.parent)
+                    {
+                        AttachToNeck(player, existing.transform);
+                        TryRebindAllSkinnedMeshesToPlayer(player, existing.transform);
                     }
                 }
-                var inst = UnityEngine.Object.Instantiate(equipped_prefab);
-                inst.name = equipped_prefab.name;
-                SafePrepareVisualInstance(inst);
-                AttachToNeck(player, inst.transform);
-                TryRebindAllSkinnedMeshesToPlayer(player, inst.transform);
-
-                Spawned[player] = inst;
-                //FerdsEpicEnhancementsPlugin.LogS.LogInfo($"[{FerdsEpicEnhancementsPlugin.PluginName}][EQUIP] Attached visual '{inst.name}' for '{prefab_name}' to '{player.name}'");
+                else if (allowedNames.Contains(prefab_name))
+                {
+                    var inst = UnityEngine.Object.Instantiate(equipped_prefab);
+                    inst.name = equipped_prefab.name;
+                    SafePrepareVisualInstance(inst);
+                    AttachToNeck(player, inst.transform);
+                    TryRebindAllSkinnedMeshesToPlayer(player, inst.transform);
+                    Spawned[player] = inst;
+                }
             }
             catch (System.Exception ex)
             {
@@ -235,13 +250,13 @@ namespace FerdEpicEnhancements
         }
         private static string GetEquippedTrinketPrefabName(Player p)
         {
-            if (p == null) return null;
+            if (p == null) return "";
             foreach (var it in GetEquippedItemsCompat(p))
             {
                 if (it?.m_shared?.m_itemType == ItemDrop.ItemData.ItemType.Trinket)
                     return it.m_dropPrefab?.name;
             }
-            return null;
+            return "";
         }
         private static IEnumerable<ItemDrop.ItemData> GetEquippedItemsCompat(Player p)
         {
@@ -253,14 +268,6 @@ namespace FerdEpicEnhancements
         }
         private static void AttachToNeck(Player player, Transform visual)
         {
-            var allowedNames = new HashSet<string>
-            {
-                "TrinketFD_Equipped_Frd",
-                "TrinketID_Equipped_Frd",
-                "TrinketLD_Equipped_Frd"
-            };
-            if (!allowedNames.Contains(visual.name))
-                return;
             var attachPoint = player.transform.Find("Visual/Armature/Hips/Spine/Spine1/Spine2");
             if (attachPoint == null) attachPoint = player.transform;
             visual.SetParent(attachPoint, false);

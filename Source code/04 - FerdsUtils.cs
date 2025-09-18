@@ -1,6 +1,8 @@
 ﻿// File: 04 - FerdsUtils.cs
 // Target: .NET Framework 4.7.2
 using UnityEngine;
+using System.Linq;
+using System.Reflection;
 
 namespace FerdEpicEnhancements
 {
@@ -14,6 +16,16 @@ namespace FerdEpicEnhancements
                 return;
             }
             localPlayer.Message(MessageHud.MessageType.TopLeft, text, 0, null);
+        }
+        public static ItemDrop ResolveItemDrop(ObjectDB odb, string prefabName)
+        {
+            GameObject go = null;
+            try { go = odb.GetItemPrefab(prefabName); } catch { }
+            if (!go)
+            {
+                try { go = ZNetScene.instance?.GetPrefab(prefabName); } catch { }
+            }
+            return go ? go.GetComponent<ItemDrop>() : null;
         }
     }
     [DisallowMultipleComponent]

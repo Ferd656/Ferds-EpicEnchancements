@@ -533,7 +533,6 @@ namespace FerdEpicEnhancements
             try
             {
                 renegadebossactive = IsRenegadeBossActive();
-                // Si el boss está activo, fuerza la música de boss y omite la lógica original
                 if (renegadebossactive == true)
                 {
                     var stopMusic = __instance.GetType().GetMethod("StopMusic", BindingFlags.Instance | BindingFlags.NonPublic, null, Type.EmptyTypes, null);

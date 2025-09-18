@@ -15,12 +15,12 @@ using UnityEngine.SceneManagement;
 
 namespace FerdEpicEnhancements
 {
-    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.0.2")]
+    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.0.3")]
     [BepInDependency("Yggdrah.DragonRiders", BepInDependency.DependencyFlags.HardDependency)]
     public class FerdsEpicEnhancementsPlugin : BaseUnityPlugin
     {
         // Setup
-        public const string PluginVersion = "1.0.2";
+        public const string PluginVersion = "1.0.3";
         public const string PluginGuid = "Ferd.EpicEnhancements";
         public const string PluginName = "FerdsEpicEnhancements";
         public static PluginInfo Metadata =>
@@ -109,6 +109,11 @@ namespace FerdEpicEnhancements
         {
             bool bumb;
             bumb = IsDragonRidersLoaded() && IsRenegadeVikingsLoaded();
+            _appliedOnce = false;
+            if (FerdsEpicEnhancementsPlugin.Instance != null)
+            {
+                FerdsEpicEnhancementsPlugin.Instance.StartCoroutine(FerdsEpicEnhancementsPlugin.Instance.Orchestrator());
+            }
         }
         private static bool IsDragonRidersLoaded()
         {
@@ -216,26 +221,26 @@ namespace FerdEpicEnhancements
             _isPatching = true;
             try
             {
-                LogS.LogWarning("Orchestrator: Starting");
+                LogS.LogInfo($"[{PluginName}][Orchestrator] Starting . . .");
                 // Check if odb and zns are ready
                 int waitFrames = 0;
                 while (ObjectDB.instance == null || ZNetScene.instance == null)
                 {
-                    if (waitFrames++ % 60 == 0) LogS.LogWarning($"Waiting for Odb/Zns... (frame {waitFrames})");
+                    if (waitFrames++ % 60 == 0) LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for Odb/Zns... (frame {waitFrames})");
                     yield return null;
                 }
                 // Wait until odb is populated
                 int frames = 0, maxFrames = 10 * 60;
                 while ((ObjectDB.instance.m_items == null || ObjectDB.instance.m_items.Count == 0) && frames < maxFrames)
                 {
-                    if (frames++ % 60 == 0) LogS.LogWarning($"Waiting for ObjectDB.instance.m_items... (frame {frames})");
+                    if (frames++ % 60 == 0) LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for ObjectDB.instance.m_items... (frame {frames})");
                     yield return null;
                 }
                 // Wait for dragonriders
                 frames = 0;
                 while (!IsDragonRidersLoaded() && frames < maxFrames)
                 {
-                    if (frames++ % 60 == 0) LogS.LogWarning($"Waiting for DragonRiders... (frame {frames})");
+                    if (frames++ % 60 == 0) LogS.LogInfo($"[{PluginName}][Orchestrator] Waiting for DragonRiders... (frame {frames})");
                     yield return null;
                 }
                 if (!IsDragonRidersLoaded()) { 
@@ -260,7 +265,7 @@ namespace FerdEpicEnhancements
                         //if (ObjectDB.instance.GetItemPrefab("TrinketIceDragon_Frd") == null) LogS?.LogError($"[{PluginName}] Trinket '{TrinketIceDragonPrefab.name}' registration failed!");
                         //if (ObjectDB.instance.GetItemPrefab("TrinketLightningDragon_Frd") == null) LogS?.LogError($"[{PluginName}] Trinket '{TrinketLightningDragonPrefab.name}' registration failed!");
                         _appliedOnce = true;
-                        LogS.LogInfo($"[{PluginName}] CoreLogic ready");
+                        LogS.LogInfo($"[{PluginName}][Orchestrator] CoreLogic ready");
                     }
                 }
             }
