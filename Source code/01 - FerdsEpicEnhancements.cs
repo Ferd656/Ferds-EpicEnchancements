@@ -15,12 +15,12 @@ using UnityEngine.SceneManagement;
 
 namespace FerdEpicEnhancements
 {
-    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.0.1")]
+    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.0.2")]
     [BepInDependency("Yggdrah.DragonRiders", BepInDependency.DependencyFlags.HardDependency)]
     public class FerdsEpicEnhancementsPlugin : BaseUnityPlugin
     {
         // Setup
-        public const string PluginVersion = "1.0.1";
+        public const string PluginVersion = "1.0.2";
         public const string PluginGuid = "Ferd.EpicEnhancements";
         public const string PluginName = "FerdsEpicEnhancements";
         public static PluginInfo Metadata =>

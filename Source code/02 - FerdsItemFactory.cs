@@ -130,6 +130,7 @@ namespace FerdEpicEnhancements
             ObjectDB.instance.m_recipes.RemoveAll(r => r && ((!string.IsNullOrEmpty(recipeName) && r.name == recipeName) ||
                     (r.m_item == item && (station == null || r.m_craftingStation == station)))
             );
+            ObjectDB.instance.m_recipes.Remove(ObjectDB.instance.m_recipes.FirstOrDefault(r => r && r.m_item == item));
         }
         internal static ItemDrop ResolveItemDrop(string prefabName)
         {
@@ -252,6 +253,14 @@ namespace FerdEpicEnhancements
         }
         private static void AttachToNeck(Player player, Transform visual)
         {
+            var allowedNames = new HashSet<string>
+            {
+                "TrinketFD_Equipped_Frd",
+                "TrinketID_Equipped_Frd",
+                "TrinketLD_Equipped_Frd"
+            };
+            if (!allowedNames.Contains(visual.name))
+                return;
             var attachPoint = player.transform.Find("Visual/Armature/Hips/Spine/Spine1/Spine2");
             if (attachPoint == null) attachPoint = player.transform;
             visual.SetParent(attachPoint, false);
@@ -392,3 +401,4 @@ namespace FerdEpicEnhancements
         }
     }
 }
+
