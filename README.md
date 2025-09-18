@@ -121,7 +121,7 @@ Renegade's weapons and wearings updated to Valheim Call to Arms version.
 
 1. Install the [DragonRiders](https://thunderstore.io/c/valheim/p/Yggdrah/DragonRiders/versions/) mod by Yggdrah.
 > **(Optional)**
-> Install **RenegadeVikings.dll** from this repository or from [Thunderstone's page](https://thunderstore.io/c/valheim/p/blacks7ar/RenegadeVikings/) and place it in your `BepInEx/plugins` folder in your Valheim installation.
+> Install **RenegadeVikings.dll** from [this repository](https://github.com/Ferd656/Ferds-EpicEnhancements/blob/master/OptionalFiles/RenegadeVikings.dll) or from [Thunderstone's page](https://thunderstore.io/c/valheim/p/blacks7ar/RenegadeVikings/) and place it in your `BepInEx/plugins` folder in your Valheim installation.
 2. Download latest release of **FerdsEpicEnhancements.dll** from [this repository](https://github.com/Ferd656/Ferds-EpicEnhancements/releases) and place it in your `BepInEx/plugins` folder in your Valheim installation.
 3. Start the game and enjoy the new features.
 
