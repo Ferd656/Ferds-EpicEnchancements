@@ -101,7 +101,7 @@ Valheim Call To Arms update introduced adrenaline mechanics and new trinket-type
 
 ## ┈┈┈┈ Dragons rebalanced ┈┈┈┈
 
-Dragons do more damage, their attacks apply [status effecs](https://valheim.fandom.com/wiki/Status_effects) on enemies dependind on the attack's elemental damage type.
+Dragons do more damage, their attacks apply [status effecs](https://valheim.fandom.com/wiki/Status_effects) on enemies dependindG on damage type.
 
 All adult dragon attacks do a decent amount of pickaxe and chop damage so they are all good resource gathering engines.
 
