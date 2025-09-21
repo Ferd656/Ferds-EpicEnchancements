@@ -108,11 +108,13 @@ Valheim Call To Arms update introduced adrenaline mechanics and new trinket-type
 
 ## ┈┈┈┈ Dragons rebalanced ┈┈┈┈
 
-Dragons do more damage, their attacks apply [status effecs](https://valheim.fandom.com/wiki/Status_effects) on enemies dependindG on damage type.
+Dragons do more damage, their attacks apply [status effecs](https://valheim.fandom.com/wiki/Status_effects) on enemies depending on damage type.
 
 All adult dragon attacks do a decent amount of pickaxe and chop damage so they are all good resource gathering engines.
 
 Given crafting costs tweaks over dragon eggs, Mountain Dragon is balanced according to its fire and lightning counterparts in terms of damage, health and resistances.
+
+Dragons are now inmune to **stagger** and **backstab**.
 
 Health and resistances set to:
 
