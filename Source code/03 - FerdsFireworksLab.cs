@@ -1,11 +1,11 @@
 ﻿// File: 03 - FerdsFireworksLab.cs
 // Target: .NET Framework 4.7.2
-using System;
 using HarmonyLib;
-using UnityEngine;
-using System.Reflection;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
+using UnityEngine;
 
 namespace FerdEpicEnhancements
 {
@@ -161,10 +161,10 @@ namespace FerdEpicEnhancements
                 float staggerMultiplier = 2.5f;
                 float pushForce = 200f;
                 float backstabBonus = 2f;
-                float blunt = 70f;
+                float blunt = 50;
                 float slash = 0f;
-                float chop = 100f;
-                float pickaxe = 100f;
+                float chop = 75;
+                float pickaxe = 75;
                 float fire = 0f;
                 float lightning = 0f;
                 float frost = 0f;
@@ -176,23 +176,22 @@ namespace FerdEpicEnhancements
                         if (_explosionType == "vfx_slammajamma_ygg")
                         {
                             value = 4.5f;
-                            frost = 325f;
-                            slash = 75;
-                            array = new string[] { "Frost" };
+                            frost = 300f;
+                            array = new string[] { "SE_Frozen_Special_Frd" };
                         }
                     }
                     else
                     {
                         value = 7f;
-                        lightning = 300;
-                        fire = 100f;
+                        lightning = 350;
+                        fire = 150f;
                         array = new string[] { "SE_TJBurnShock" };
                     }
                 }
                 else
                 {
                     value = 4.5f;
-                    fire = 400f;
+                    fire = 500f;
                     array = new string[] { "Burning" };
                 }
                 foreach (Collider collider in Physics.OverlapSphere(center, value))
@@ -273,6 +272,123 @@ namespace FerdEpicEnhancements
                 base.Setup(character);
                 m_name = "BeastLord";
                 m_ttl = 0f;
+            }
+        }
+        public class SE_Frozen_Special_Frd : SE_Stats
+        {
+            public static readonly HashSet<string> ImmunityExceptions = new HashSet<string>
+            {
+                "BLV_OverlordVikingT1", "BLV_OverlordVikingT2", "BLV_OverlordVikingT3", "BLV_OverlordVikingT4", "BLV_OverlordVikingT5",
+                "BLV_OverlordVikingT6", "BLV_OverlordVikingT7", "BLV_OverlordVikingT8","BLV_OverlordVikingT6Summoner",
+                "BLV_OverlordVikingT7Summoner","BLV_OverlordVikingT8Summoner"
+            };
+            public static readonly HashSet<string> ImmunePrefabs = new HashSet<string>
+            {
+                "BlobLava", "BlobFrost", "Troll_Summoned", "Hatchling", "StoneGolem",
+                "DModer_Ygg2", "DModer_Ygg3", "DModer_Ygg4_Elder"
+            };
+            public override void Setup(Character character)
+            {
+                base.Setup(character);
+                m_ttl = 1f;
+                // Inmune creatures
+                if (character == null || (!ImmunityExceptions.Contains(FerdsUtils.clean_name(character.name)) && (character.IsBoss() || ImmunePrefabs.Contains(FerdsUtils.clean_name(character.name)))))
+                {
+                    m_ttl = 0f;
+                    return;
+                }
+                var modfs = character.m_damageModifiers;
+                if ( // Do not apply for very resistant creatures
+                    modfs.m_frost == HitData.DamageModifier.VeryResistant ||
+                    modfs.m_frost == HitData.DamageModifier.Immune)
+                {
+                    m_ttl = 0f;
+                    return;
+                }
+                var seMan = character.GetSEMan();
+                var frostSE = ObjectDB.instance.GetStatusEffect("Frost".GetStableHashCode());
+                frostSE.m_ttl = 6f;
+                var frozenSolidSE = ObjectDB.instance.GetStatusEffect("SE_FrozenSolid".GetStableHashCode());
+                frozenSolidSE.m_ttl = 12f;
+
+                if (seMan.GetStatusEffect("SE_FrozenSolid".GetStableHashCode()) == null)
+                {
+                    if (UnityEngine.Random.value < 0.20f)
+                    {
+                        character.GetSEMan().AddStatusEffect(frozenSolidSE, false, 0, 0f);
+                    }
+                    else
+                    {
+                        character.GetSEMan().AddStatusEffect(frostSE, true, 0, 0f);
+                    }
+                }
+            }
+        }
+        public class SE_FrozenSolid : SE_Stats
+        {
+            private GameObject _fxFrozenSolid;
+            private GameObject _fxFreezing;
+            private SE_Stats _immobilizedSE;
+            public static readonly HashSet<string> bigmonsters = new HashSet<string>
+            {
+                "Lox", "StoneGolem", "Troll", "Troll_Summoned", "FallenValkyrie","Abomination", "GoblinBrute",
+                "Gjall", "SeekerBrute", "Morgen", "Serpent", "BonemawSerpent"
+            };
+            public override void Setup(Character character)
+            {
+                base.Setup(character);
+                m_ttl = 12f;
+                var seMan = character.GetSEMan();
+                GameObject frozenPrefab = FerdsEpicEnhancementsPlugin.FrozenSolidPrefab;
+                Vector3 charPos = character.transform.position;
+                Vector3 spawnPos = new Vector3(charPos.x, charPos.y, charPos.z);
+
+                AudioSource.PlayClipAtPoint(FerdsEpicEnhancementsPlugin.FrozenSolidSfx, character.transform.position, 1f);
+
+                _fxFrozenSolid = UnityEngine.Object.Instantiate(
+                    frozenPrefab,
+                    spawnPos,
+                    character.transform.rotation
+                );
+                _fxFrozenSolid.transform.localScale = _fxFrozenSolid.transform.localScale * 0.1f;
+                _fxFrozenSolid.transform.SetParent(character.transform, true);
+
+                string prefabName = FerdsUtils.clean_name(character.name);
+                if (bigmonsters.Contains(prefabName))
+                {
+                    character.StartCoroutine(ScaleOverTime(_fxFrozenSolid, _fxFrozenSolid.transform.localScale * 8f, 1f));
+                }
+                else
+                {
+                    character.StartCoroutine(ScaleOverTime(_fxFrozenSolid, _fxFrozenSolid.transform.localScale * 5f, 1f));
+                }
+                var immobilizedSE = ObjectDB.instance.GetStatusEffect("Immobilized".GetStableHashCode()).Clone();
+                immobilizedSE.m_ttl = m_ttl;
+                if (immobilizedSE != null)
+                {
+                    _immobilizedSE = character.GetSEMan().AddStatusEffect(immobilizedSE, false) as SE_Stats;
+                }
+            }
+            private IEnumerator ScaleOverTime(GameObject obj, Vector3 targetScale, float duration)
+            {
+                if (obj == null) yield break;
+                Vector3 initialScale = obj.transform.localScale;
+                float timer = 0f;
+                while (timer < duration)
+                {
+                    timer += Time.deltaTime;
+                    float t = Mathf.Clamp01(timer / duration);
+                    obj.transform.localScale = Vector3.Lerp(initialScale, targetScale, t);
+                    yield return null;
+                }
+                obj.transform.localScale = targetScale;
+            }
+            public override void Stop()
+            {
+                base.Stop();
+                if (_fxFrozenSolid != null) UnityEngine.Object.Destroy(_fxFrozenSolid);
+                if (_fxFreezing != null) UnityEngine.Object.Destroy(_fxFreezing);
+                if (_immobilizedSE != null) _immobilizedSE.Stop();
             }
         }
     }
@@ -608,4 +724,31 @@ namespace FerdEpicEnhancements
             return false;
         }
     }
+    // Test patch
+    //[HarmonyPatch]
+    //public static class Patch_Character_Damage_FrozenSolid
+    //{
+    //    static MethodBase TargetMethod()
+    //    {
+    //        var type = AccessTools.TypeByName("Character");
+    //        return type != null ? AccessTools.Method(type, "Damage", new Type[] { typeof(HitData) }) : null;
+    //    }
+    //    static void Prefix(Character __instance, HitData hit)
+    //    {
+    //        if (__instance == null || hit == null) return;
+    //        var attackerZDO = hit.m_attacker;
+    //        if (attackerZDO == null) return;
+    //        var attackerObj = ZDOMan.instance.GetZDO(attackerZDO);
+    //        if (attackerObj == null) return;
+    //        if (attackerObj.GetPrefab() == "Player".GetStableHashCode())
+    //        {
+    //            var seMan = __instance.GetSEMan();
+    //            var frozenSE = ObjectDB.instance.GetStatusEffect("SE_Frozen_Special_Frd".GetStableHashCode());
+    //            if (frozenSE != null)
+    //            {
+    //                seMan.AddStatusEffect(frozenSE, false, 0, 12f);
+    //            }
+    //        }
+    //    }
+    //}
 }

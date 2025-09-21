@@ -1,8 +1,6 @@
 ﻿// File: 04 - FerdsUtils.cs
 // Target: .NET Framework 4.7.2
 using UnityEngine;
-using System.Linq;
-using System.Reflection;
 
 namespace FerdEpicEnhancements
 {
@@ -26,6 +24,10 @@ namespace FerdEpicEnhancements
                 try { go = ZNetScene.instance?.GetPrefab(prefabName); } catch { }
             }
             return go ? go.GetComponent<ItemDrop>() : null;
+        }
+        public static string clean_name(string rawname)
+        {
+            return rawname.Replace("(Clone)", "").Trim();
         }
     }
     [DisallowMultipleComponent]

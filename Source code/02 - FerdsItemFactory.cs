@@ -1,13 +1,13 @@
 ﻿// File: 02 - FerdsItemFactory.cs
 // Target: .NET Framework 4.7.2
-using System;
-using HarmonyLib;
-using System.Linq;
-using UnityEngine;
-using System.Reflection;
-using System.Collections.Generic;
 using FerdEpicEnhancements.JotunnEntities;
 using FerdEpicEnhancements.JotunnManagers;
+using HarmonyLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
 
 namespace FerdEpicEnhancements
 {
@@ -21,7 +21,7 @@ namespace FerdEpicEnhancements
                 description: "Remains from a heir of Moder are used to craft this relic. Cold wind coils around this frost-infused artifact",
                 trinketIcon: FerdsEpicEnhancementsPlugin.TrinketIceDragonPrefab_icon,
                 recipeName: "Recipe_TrinketIceDragon_Frd",
-                reqs: new Piece.Requirement[] { Req("SilverNecklace", 1, 0), Req("Degg_Moder_Ygg", 2, 0), Req("YmirRemains", 5, 0), Req("GemstoneGreen", 3, 0) },
+                reqs: new Piece.Requirement[] { Req("SilverNecklace", 1, 0), Req("Degg_Moder_Ygg", 1, 0), Req("YmirRemains", 10, 0), Req("GemstoneGreen", 3, 0) },
                 trinket_se: FerdsEpicEnhancementsPlugin.IceTrinket_SE
             );
             BuildTrinket(
@@ -80,6 +80,17 @@ namespace FerdEpicEnhancements
                     trinket_obj.name = worldPrefabName;
                     if (!trinket_obj.GetComponent<ZNetView>()) trinket_obj.AddComponent<ZNetView>();
                     if (!trinket_obj.GetComponent<ZSyncTransform>()) trinket_obj.AddComponent<ZSyncTransform>();
+                    ZNetView component = trinket_obj.GetComponent<ZNetView>();
+                    component.m_persistent = true;
+                    component.m_distant = false;
+                    component.m_type = ZDO.ObjectType.Default;
+                    component.m_syncInitialScale = false;
+                    ZSyncTransform component2 = trinket_obj.GetComponent<ZSyncTransform>();
+                    component2.m_syncPosition = true;
+                    component2.m_syncRotation = true;
+                    component2.m_syncScale = false;
+                    component2.m_syncBodyVelocity = false;
+                    component2.m_characterParentSync = false;
                     if (!trinket_obj.GetComponent<Collider>()) { var c = trinket_obj.AddComponent<BoxCollider>(); c.isTrigger = false; }
                     ItemDrop trinket_idp = EnsureItemDrop(trinket_obj);
                     if (trinket_idp.m_itemData.m_shared == null)
@@ -363,6 +374,7 @@ namespace FerdEpicEnhancements
             return AccessTools.Method("Sadle:UpdateStamina");
         }
         private static float? originalStaminaRegenHungry = null;
+        private static readonly Dictionary<object, float> healTimers = new Dictionary<object, float>();
         static void Prefix(object __instance, ref float dt)
         {
             var m_character = AccessTools.Field(__instance.GetType(), "m_character").GetValue(__instance) as Character;
@@ -394,10 +406,17 @@ namespace FerdEpicEnhancements
                 // Ignore hunger
                 staminaRegenHungryField.SetValue(__instance, staminaRegen);
                 // Heal
-                float maxHealth = m_character.GetMaxHealth();
-                float healAmount = Mathf.Ceil(maxHealth * 0.0008f * dt);
-                if (healAmount > 0f)
-                    m_character.Heal(healAmount, false);
+                float timer = healTimers.ContainsKey(__instance) ? healTimers[__instance] : 0f;
+                timer += dt;
+                if (timer >= 1f)
+                {
+                    float maxHealth = m_character.GetMaxHealth();
+                    float healAmount = Mathf.Ceil(maxHealth * 0.0008f);
+                    if (healAmount > 0f)
+                        m_character.Heal(healAmount, false);
+                    timer = 0f;
+                }
+                healTimers[__instance] = timer;
             }
             else
             {

@@ -1,26 +1,26 @@
 ﻿// File: 01 - FerdsEpicEnhancements.cs
 // Target: .NET Framework 4.7.2
-using System;
 using BepInEx;
-using System.IO;
-using HarmonyLib;
-using System.Linq;
-using UnityEngine;
 using BepInEx.Logging;
-using System.Reflection;
-using System.Collections;
+using HarmonyLib;
 using SoftReferenceableAssets;
+using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace FerdEpicEnhancements
 {
-    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.0.3")]
+    [BepInPlugin("Ferd.EpicEnhancements", "FerdsEpicEnhancements", "1.1.0")]
     [BepInDependency("Yggdrah.DragonRiders", BepInDependency.DependencyFlags.HardDependency)]
     public class FerdsEpicEnhancementsPlugin : BaseUnityPlugin
     {
         // Setup
-        public const string PluginVersion = "1.0.3";
+        public const string PluginVersion = "1.1.0";
         public const string PluginGuid = "Ferd.EpicEnhancements";
         public const string PluginName = "FerdsEpicEnhancements";
         public static PluginInfo Metadata =>
@@ -34,12 +34,14 @@ namespace FerdEpicEnhancements
         private static string assetbundle_filename = "FerdsEpicAssets";
         public static Material NewCapeMaterial;
         public static AudioClip RenegadeBossMusic;
+        public static AudioClip FrozenSolidSfx;
         internal static GameObject TrinketFireDragonPrefab;
         internal static GameObject TrinketIceDragonPrefab;
         internal static GameObject TrinketLightningDragonPrefab;
         internal static GameObject TrinketFireDragonPrefab_equipped;
         internal static GameObject TrinketIceDragonPrefab_equipped;
         internal static GameObject TrinketLightningDragonPrefab_equipped;
+        internal static GameObject FrozenSolidPrefab;
         internal static Sprite TrinketFireDragonPrefab_icon;
         internal static Sprite TrinketIceDragonPrefab_icon;
         internal static Sprite TrinketLightningDragonPrefab_icon;
@@ -59,6 +61,8 @@ namespace FerdEpicEnhancements
         internal static StatusEffect LightningTrinket_SE;
         internal static StatusEffect FireTrinket_SE;
         private static StatusEffect BurnShock_SE;
+        private static StatusEffect FozenSolid_SE;
+        private static StatusEffect FrostSpecial_SE;
         // Config
         private static bool override_yggdras_config = true;
         private static readonly string ConfigFilePath = Path.Combine(Paths.ConfigPath, "Yggdrah.DragonRiders.cfg");
@@ -87,6 +91,8 @@ namespace FerdEpicEnhancements
             TrinketFireDragonPrefab_equipped = _assetBundle.LoadAsset<GameObject>("TrinketFD_Equipped_Frd");
             TrinketIceDragonPrefab_equipped = _assetBundle.LoadAsset<GameObject>("TrinketID_Equipped_Frd");
             TrinketLightningDragonPrefab_equipped = _assetBundle.LoadAsset<GameObject>("TrinketLD_Equipped_Frd");
+            FrozenSolidPrefab = _assetBundle.LoadAsset<GameObject>("FrozenSolid_Frd");
+            FrozenSolidSfx = _assetBundle.LoadAsset<AudioClip>("FrozenSolid.wav");
             TrinketFireDragonPrefab_icon = _assetBundle.LoadAsset<Sprite>("FireDragonTrinket_Frd");
             TrinketIceDragonPrefab_icon = _assetBundle.LoadAsset<Sprite>("IceDragonTrinket_Frd");
             TrinketLightningDragonPrefab_icon = _assetBundle.LoadAsset<Sprite>("LightningDragonTrinket_Frd");
@@ -266,6 +272,8 @@ namespace FerdEpicEnhancements
                         SetDragonLeap();
                         SetBeastLord();
                         SetBurnShock();
+                        SetFrozenSolid();
+                        SetFrostSpecial();
                         SetVetrFadmrExplosion();
                         SetStormrFadmrExplosion();
                         SetEldrFadmrExplosion();
@@ -577,11 +585,11 @@ namespace FerdEpicEnhancements
             try {
                 if (override_yggdras_config){
                     // ICE
-                    TweakAttack("iceball_attack_Ygg", frost: 110, chop: 75, pick: 75, blunt: 33, se: "Frost", seChance: .5f);
-                    TweakAttack("iceball_attack_Ygg2", frost: 165, chop: 100, pick: 100, blunt: 48, se: "Frost", seChance: .5f);
-                    TweakAttack("Atk_stompmoder_ygg", frost: 297, chop: 150, pick: 150, blunt: 83, forceVal: 50f, se: "Frost", seChance: 1.0f);
-                    TweakAttack("Atk_Ice_Spit_MD_Ygg", frost: 385, chop: 200, pick: 200, blunt: 110, forceVal: 50f, se: "Frost", seChance: 1.0f);
-                    TweakAttack("Atk_Ice_Spit_MD_Elder_Ygg", frost: 495, chop: 200, pick: 200, blunt: 125, forceVal: 50f, se: "Frost", seChance: 1.0f);
+                    TweakAttack("iceball_attack_Ygg", frost: 99, chop: 75, pick: 75, blunt: 30, se: "Frost", seChance: .5f);
+                    TweakAttack("iceball_attack_Ygg2", frost: 149, chop: 100, pick: 100, blunt: 43, se: "Frost", seChance: .5f);
+                    TweakAttack("Atk_stompmoder_ygg", frost: 267, chop: 150, pick: 150, blunt: 75, forceVal: 50f, se: "SE_Frozen_Special_Frd", seChance: 1.0f);
+                    TweakAttack("Atk_Ice_Spit_MD_Ygg", frost: 347, chop: 200, pick: 200, blunt: 99, forceVal: 50f, se: "SE_Frozen_Special_Frd", seChance: 1.0f);
+                    TweakAttack("Atk_Ice_Spit_MD_Elder_Ygg", frost: 446, chop: 200, pick: 200, blunt: 113, forceVal: 50f, se: "SE_Frozen_Special_Frd", seChance: 1.0f);
                     // FIRE
                     TweakAttack("Dred_Attack1", fire: 83, chop: 75, pick: 75, blunt: 33, forceVal: 10f, se: "Burning", seChance: .5f);
                     TweakAttack("Dred_Attack2", fire: 220, chop: 100, pick: 100, blunt: 55, forceVal: 25f, se: "Burning", seChance: .5f);
@@ -642,6 +650,7 @@ namespace FerdEpicEnhancements
                 if (go && go.TryGetComponent<Character>(out var ch))
                 {
                     ch.m_health = hp;
+                    ch.m_staggerDamageFactor = 0f;
                     if (prefab == "DModer_Ygg3" || prefab == "DModer_Ygg4_Elder"){
                         SetResistances(ch, "Ice");
                     }  else if (prefab == "dragon_ygg3_fire" || prefab == "dragon_ygg4_fire_Elder"){
@@ -707,6 +716,67 @@ namespace FerdEpicEnhancements
         ║ Status effects registration        ║
         ╚════════════════════════════════════╝
         */
+        internal static IEnumerator SetVisual(GameObject gobj, string name)
+        {
+            if (!ObjectDB.instance || !ZNetScene.instance || !gobj)
+            {
+                if (!ObjectDB.instance) LogS.LogError("ObjectDB is NULL before visual registration!");
+                if (!ZNetScene.instance) LogS.LogError("ZNetScene is NULL before visual registration!");
+                if (!gobj) LogS.LogError($"visual is NULL before registration!");
+                yield break;
+            }
+            int maxFrames = 10 * 60;
+            int frames = 0;
+            Dictionary<string, GameObject> namedPrefabs = null;
+            FieldInfo namedPrefabsField = null;
+            while (true)
+            {
+                namedPrefabsField = typeof(ZNetScene).GetField("m_namedPrefabs", BindingFlags.Instance | BindingFlags.NonPublic);
+                if (ZNetScene.instance != null && namedPrefabsField != null)
+                {
+                    namedPrefabs = namedPrefabsField.GetValue(ZNetScene.instance) as Dictionary<string, GameObject>;
+                    if (namedPrefabs != null)
+                        break;
+                }
+                if (frames++ > maxFrames)
+                {
+                    yield break;
+                }
+                yield return null;
+            }
+            try
+            {
+                if (!gobj.GetComponent<ZNetView>()) gobj.AddComponent<ZNetView>();
+                if (!gobj.GetComponent<ZSyncTransform>()) gobj.AddComponent<ZSyncTransform>();
+                gobj.name = name;
+                ZNetView component = gobj.GetComponent<ZNetView>();
+                component.name = name;
+                component.m_persistent = true;
+                component.m_distant = false;
+                component.m_type = ZDO.ObjectType.Default;
+                component.m_syncInitialScale = false;
+                ZSyncTransform component2 = gobj.GetComponent<ZSyncTransform>();
+                component2.m_syncPosition = true;
+                component2.m_syncRotation = true;
+                component2.m_syncScale = false;
+                component2.m_syncBodyVelocity = false;
+                component2.m_characterParentSync = false;
+                if (!gobj.GetComponent<Collider>()) { var c = gobj.AddComponent<BoxCollider>(); c.isTrigger = false; }
+                if (gobj != null && ZNetScene.instance != null)
+                {
+                    if (!ZNetScene.instance.m_prefabs.Contains(gobj))
+                    {
+                        ZNetScene.instance.m_prefabs.Add(gobj);
+                        LogS.LogInfo("Visual registered in ZNetScene");
+                    }
+                    // namedPrefabs ya está listo aquí
+                    if (namedPrefabs.ContainsKey(name)) namedPrefabs.Remove(name);
+                    namedPrefabs.Add(name, gobj);
+                    LogS.LogInfo($"Visual '{name}' registered in m_namedPrefabs");
+                }
+            }
+            catch (Exception ex) { LogS?.LogError($"[{PluginName}] Failed building visual \nReason:\n{ex}"); }
+        }
         internal static void SetScaleWard() {
             if (ObjectDB.instance == null || ScaleWard_SE != null) return;
             var se = ScriptableObject.CreateInstance<SE_Stats>();
@@ -756,6 +826,29 @@ namespace FerdEpicEnhancements
             if (ObjectDB.instance.m_StatusEffects == null) ObjectDB.instance.m_StatusEffects = new List<StatusEffect>();
             ObjectDB.instance.m_StatusEffects.Add(se);
             BurnShock_SE = se;
+        }
+        internal static void SetFrostSpecial()
+        {
+            if (ObjectDB.instance == null || FrostSpecial_SE != null) return;
+            var se = ScriptableObject.CreateInstance<FerdsFireworksLab.SE_Frozen_Special_Frd>();
+            se.name = "SE_Frozen_Special_Frd";
+            se.m_name = "FrostSpecial";
+            se.m_ttl = 1f;
+            if (ObjectDB.instance.m_StatusEffects == null) ObjectDB.instance.m_StatusEffects = new List<StatusEffect>();
+            ObjectDB.instance.m_StatusEffects.Add(se);
+            FrostSpecial_SE = se;
+        }
+        internal static void SetFrozenSolid()
+        {
+            if (ObjectDB.instance == null || FozenSolid_SE != null) return;
+            FerdsEpicEnhancementsPlugin.Instance.StartCoroutine(SetVisual(FrozenSolidPrefab, "FrozenSolid_Frd"));
+            var se = ScriptableObject.CreateInstance<FerdsFireworksLab.SE_FrozenSolid>();
+            se.name = "SE_FrozenSolid";
+            se.m_name = "FrozenSolid";
+            se.m_ttl = 12f;
+            if (ObjectDB.instance.m_StatusEffects == null) ObjectDB.instance.m_StatusEffects = new List<StatusEffect>();
+            ObjectDB.instance.m_StatusEffects.Add(se);
+            FozenSolid_SE = se;
         }
         internal static void SetEldrFadmrExplosion()
         {
@@ -954,6 +1047,24 @@ namespace FerdEpicEnhancements
                     ?? AccessTools.Method(typeof(ObjectDB), "Initialize");
             } 
         }
+
+        [HarmonyPatch(typeof(Character), "ApplyDamage")]
+        public class Patch_Character_ApplyDamage_DragonImmunity
+        {
+            static void Prefix(Character __instance, HitData hit, bool showDamageText, bool triggerEffects, HitData.DamageModifier mod)
+            {
+                // No Stagger nor backstab apply on dragons
+                string name = __instance?.name ?? "";
+                if (name.IndexOf("dragon_ygg", StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    name.IndexOf("DModer_Ygg", StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    hit.m_staggerMultiplier = 0f;
+                    hit.m_dir = Vector3.zero;
+                    hit.m_backstabBonus = 1f;
+                }
+            }
+        }
+
         [HarmonyPatch(typeof(InventoryGui), "Show")]
         static class Patch_InventoryGui_Show {
             [HarmonyPostfix, HarmonyPriority(HarmonyLib.Priority.Last)]
@@ -1047,8 +1158,7 @@ namespace FerdEpicEnhancements
             {
                 if (__instance.m_item != null)
                 {
-                    // Elimina "(Clone)" si existe y compara el nombre limpio
-                    string cleanName = __instance.m_item.name.Replace("(Clone)", "").Trim();
+                    string cleanName =  FerdsUtils.clean_name(__instance.m_item.name);
                     if (TargetPrefabs.Contains(cleanName))
                     {
                         __result = __instance.m_minStationLevel + quality - 1;
