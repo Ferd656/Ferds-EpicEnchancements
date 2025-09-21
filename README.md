@@ -28,7 +28,7 @@
 
 ### **Frozen Solid**
 Ice Dragon attacks and Ice Dragon trinket have a % chance to apply **Frozen Solid Status Effect** to each enemy hit.
-![ScaleWard](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnhancements/refs/heads/master/Media/ScaleWard.png)
+![ScaleWard](https://raw.githubusercontent.com/Ferd656/Ferds-EpicEnhancements/refs/heads/master/Media/FrozenSolid.png)
 
 
 ## ┈┈┈┈ Items rebalanced ┈┈┈┈
